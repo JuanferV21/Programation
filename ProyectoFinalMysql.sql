@@ -9,7 +9,10 @@ CREATE TABLE usuarios (
   last_updated   DATETIME              NOT NULL DEFAULT CURRENT_TIMESTAMP
                                  ON UPDATE CURRENT_TIMESTAMP,
   intentos       TINYINT UNSIGNED      NOT NULL DEFAULT 0,
-  bloqueado      TINYINT(1)            NOT NULL DEFAULT 0
+  bloqueado      TINYINT(1)            NOT NULL DEFAULT 0,
+  role           VARCHAR(20)           NOT NULL DEFAULT 'user',
+  activo         TINYINT(1)            NOT NULL DEFAULT 0,
+  verification_token CHAR(64)
 );
 
 -- 2. Tabla de auditoría
@@ -20,6 +23,14 @@ CREATE TABLE registroactividad (
   id_registro   INT(10) UNSIGNED,
   fecha         DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ip_origen     VARCHAR(45)
+);
+
+-- Tabla de tokens para recuperación de contraseña
+CREATE TABLE reset_tokens (
+  token    CHAR(64) PRIMARY KEY,
+  user_id  INT(10) UNSIGNED NOT NULL,
+  expires  DATETIME NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
 -- 3. Tabla de control de sincronización

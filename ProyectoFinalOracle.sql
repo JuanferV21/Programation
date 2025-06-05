@@ -17,7 +17,7 @@ CREATE TABLE registroactividad (
   fecha         TIMESTAMP     DEFAULT SYSTIMESTAMP,
   ip_origen     VARCHAR2(45)
 );
-/
+
 
 
 
@@ -31,7 +31,10 @@ CREATE TABLE usuarios (
   created_at     DATE           DEFAULT SYSDATE,
   last_updated   DATE           DEFAULT SYSDATE,
   intentos       NUMBER(3)      DEFAULT 0 NOT NULL,
-  bloqueado      CHAR(1)        DEFAULT 'N' CHECK (bloqueado IN ('Y','N'))
+  bloqueado      CHAR(1)        DEFAULT 'N' CHECK (bloqueado IN ('Y','N')),
+  role           VARCHAR2(20)   DEFAULT 'user',
+  activo         CHAR(1)        DEFAULT 'N' CHECK (activo IN ('Y','N')),
+  verification_token VARCHAR2(64)
 );
 /
 
@@ -40,6 +43,15 @@ SELECT * FROM usuarios;
 INSERT INTO usuarios (id, username, password_hash, salt, email, last_updated)
 VALUES (999, 'oracle_test', 'hash_dummy', 'salt_dummy', 'o@ej.com', SYSTIMESTAMP);
 COMMIT;
+
+-- Tabla de tokens para recuperación de contraseña
+CREATE TABLE reset_tokens (
+  token    VARCHAR2(64) PRIMARY KEY,
+  user_id  NUMBER(10) NOT NULL,
+  expires  DATE NOT NULL,
+  CONSTRAINT fk_reset_user FOREIGN KEY(user_id) REFERENCES usuarios(id)
+);
+/
 
 
 SELECT * FROM registroactividad

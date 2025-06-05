@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const path    = require('path');
 const helmet  = require('helmet');
+const cookieParser = require('cookie-parser');
+
+const rateLimit = require('express-rate-limit');
 
 const auth = require('./routes/auth');
 
@@ -10,6 +13,10 @@ const app = express();
 // 1) Cabeceras de seguridad y parseo de JSON
 app.use(helmet());
 app.use(express.json());
+app.use(cookieParser());
+
+const limiter = rateLimit({ windowMs: 60 * 1000, max: 20 });
+app.use(limiter);
 
 // 2) Sirvo todo lo que esté en /public como archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
