@@ -1,4 +1,6 @@
 // public/js/app.js
+// Funciones principales para manejar tema, formularios y dashboard
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm     = document.getElementById('loginForm');
     const registerForm  = document.getElementById('registerForm');
@@ -9,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle   = document.getElementById('themeToggle');
     const togglePwBtns  = document.querySelectorAll('.toggle-password');
 
+    /**
+     * Aplica el tema visual al documento y cambia el icono del interruptor.
+     * @param {string} theme "dark" o "light"
+     */
     function applyTheme(theme) {
       if (theme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -20,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (themeToggle) {
-      applyTheme(localStorage.getItem('theme'));
+      applyTheme(localStorage.getItem('theme') || 'light');
       themeToggle.addEventListener('click', () => {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const newTheme = isDark ? 'light' : 'dark';
@@ -42,10 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   
-    // Helper para mostrar alertas
+    /**
+     * Muestra un mensaje de alerta dentro del contenedor indicado.
+     * Se utiliza la clase `alert-dismissible` de Bootstrap para poder cerrarla.
+     * @param {string} containerId - id del contenedor destino
+     * @param {string} msg - mensaje a mostrar
+     * @param {string} type - success | danger | info | warning
+     */
     function showAlert(containerId, msg, type) {
       const c = document.getElementById(containerId);
-      if (c) c.innerHTML = `<div class="alert alert-${type}" role="alert">${msg}</div>`;
+      if (!c) return;
+      c.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert" aria-live="polite">
+          ${msg}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>`;
     }
   
     // LOGOUT siempre disponible
@@ -230,17 +247,17 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       };
 
-      ['linkProfile','linkProfile2'].forEach(id => {
+      ['linkProfile','linkProfile2','cardProfile'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('click', profileFns);
       });
 
-      ['linkChange','linkChange2'].forEach(id => {
+      ['linkChange','linkChange2','cardChange'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('click', changeFn);
       });
 
-      ['linkOther','linkOther2'].forEach(id => {
+      ['linkOther','linkOther2','cardOther'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('click', otherFn);
       });

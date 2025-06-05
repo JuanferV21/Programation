@@ -28,9 +28,9 @@
       </button>
       <a class="navbar-brand fw-bold" href="#">SecureAuth</a>
       <div class="ms-auto d-flex align-items-center gap-2">
-        <button id="themeToggle" class="btn btn-secondary"><i class="bi bi-moon-fill"></i></button>
+        <button id="themeToggle" class="btn btn-secondary" aria-label="Cambiar tema"><i class="bi bi-moon-fill" aria-hidden="true"></i></button>
         <button class="btn btn-outline-danger" id="logoutBtn">
-          <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+          <i class="bi bi-box-arrow-right me-1" aria-hidden="true"></i>Cerrar sesión
         </button>
       </div>
     </div>
@@ -42,17 +42,17 @@
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item mb-2">
           <a href="#" id="linkProfile" class="nav-link active">
-            <i class="bi bi-person-circle me-1"></i> Perfil
+            <i class="bi bi-person-circle me-1" aria-hidden="true"></i> Perfil
           </a>
         </li>
         <li class="nav-item mb-2">
           <a href="#" id="linkChange" class="nav-link">
-            <i class="bi bi-key-fill me-1"></i> Cambiar contraseña
+            <i class="bi bi-key-fill me-1" aria-hidden="true"></i> Cambiar contraseña
           </a>
         </li>
         <li class="nav-item mb-2">
           <a href="#" id="linkOther" class="nav-link">
-            <i class="bi bi-gear-fill me-1"></i> Otras funciones
+            <i class="bi bi-gear-fill me-1" aria-hidden="true"></i> Otras funciones
           </a>
         </li>
       </ul>
@@ -64,17 +64,17 @@
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item mb-2">
             <a href="#" id="linkProfile2" class="nav-link active">
-              <i class="bi bi-person-circle me-1"></i> Perfil
+              <i class="bi bi-person-circle me-1" aria-hidden="true"></i> Perfil
             </a>
           </li>
           <li class="nav-item mb-2">
             <a href="#" id="linkChange2" class="nav-link">
-              <i class="bi bi-key-fill me-1"></i> Cambiar contraseña
+              <i class="bi bi-key-fill me-1" aria-hidden="true"></i> Cambiar contraseña
             </a>
           </li>
           <li class="nav-item mb-2">
             <a href="#" id="linkOther2" class="nav-link">
-              <i class="bi bi-gear-fill me-1"></i> Otras funciones
+              <i class="bi bi-gear-fill me-1" aria-hidden="true"></i> Otras funciones
             </a>
           </li>
         </ul>
@@ -83,14 +83,33 @@
 
     <!-- Main content -->
     <main class="flex-grow-1 p-4">
-      <div id="mainContent">
-        <div class="card p-4">
-          <h5 class="card-title">Bienvenido, <span id="userSpan"></span></h5>
-          <p class="card-text">
-            Selecciona una opción del menú lateral para comenzar.
-          </p>
+      <div class="row g-3" id="mainCards">
+        <div class="col-md-6 col-xl-4">
+          <div class="card h-100 text-center p-4">
+            <i class="bi bi-person-circle display-4 text-primary mb-3" aria-hidden="true"></i>
+            <h5 class="card-title">Perfil</h5>
+            <p class="card-text">Información personal y ajustes de cuenta.</p>
+            <a href="#" id="cardProfile" class="stretched-link btn btn-primary mt-auto">Abrir</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="card h-100 text-center p-4">
+            <i class="bi bi-key-fill display-4 text-primary mb-3" aria-hidden="true"></i>
+            <h5 class="card-title">Cambiar contraseña</h5>
+            <p class="card-text">Actualiza tu contraseña periódicamente.</p>
+            <a href="#" id="cardChange" class="stretched-link btn btn-primary mt-auto">Abrir</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="card h-100 text-center p-4">
+            <i class="bi bi-gear-fill display-4 text-primary mb-3" aria-hidden="true"></i>
+            <h5 class="card-title">Otras funciones</h5>
+            <p class="card-text">Acceso rápido a utilidades adicionales.</p>
+            <a href="#" id="cardOther" class="stretched-link btn btn-primary mt-auto">Abrir</a>
+          </div>
         </div>
       </div>
+      <div id="mainContent" class="mt-4"></div>
     </main>
   </div>
 
