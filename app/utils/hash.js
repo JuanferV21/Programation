@@ -1,15 +1,12 @@
-const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
-function genSalt() {
-  return crypto.randomBytes(16).toString('hex');
+async function hashPassword(password) {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
 }
 
-function sha256(password, salt) {
-  return crypto
-    .createHmac('sha256', salt)
-    .update(password)
-    .digest('hex');
+async function comparePassword(password, hash) {
+  return await bcrypt.compare(password, hash);
 }
 
-module.exports = { genSalt, sha256 };
-
+module.exports = { hashPassword, comparePassword };

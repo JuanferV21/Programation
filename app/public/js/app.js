@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const forgotForm    = document.getElementById('forgotForm');
     const resetForm     = document.getElementById('resetForm');
     const changeForm    = document.getElementById('changeForm');
-    const token         = localStorage.getItem('token');
     const username      = localStorage.getItem('username');
   
     // Helper para mostrar alertas
@@ -40,8 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error);
-  
-          localStorage.setItem('token', data.token);
+
           localStorage.setItem('username', u);
           window.location.href = 'dashboard.html';
         } catch (err) {
@@ -133,21 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // CAMBIO DE CONTRASEÑA (Dashboard)
     // ----------------------------
     if (changeForm) {
-      if (!token) {
-        window.location.href = 'index.html';
-        return;
-      }
       changeForm.addEventListener('submit', async e => {
         e.preventDefault();
         const cur = document.getElementById('currentPassword').value;
         const neu = document.getElementById('newPassword').value;
-  
+
         try {
           const res = await fetch('/api/auth/change-password', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ username, currentPassword: cur, newPassword: neu })
           });
