@@ -6,6 +6,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetForm     = document.getElementById('resetForm');
     const changeForm    = document.getElementById('changeForm');
     const username      = localStorage.getItem('username');
+    const themeToggle   = document.getElementById('themeToggle');
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        if (themeToggle) themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (themeToggle) themeToggle.innerHTML = '<i class="bi bi-moon-fill"></i>';
+      }
+    }
+
+    if (themeToggle) {
+      applyTheme(localStorage.getItem('theme'));
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+      });
+    }
   
     // Helper para mostrar alertas
     function showAlert(containerId, msg, type) {
@@ -160,15 +181,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userSpan) {
       userSpan.textContent = username;
       const main = document.getElementById('mainContent');
-  
-      document.getElementById('linkProfile').addEventListener('click', () => {
+
+      const profileFns = () => {
         main.innerHTML = `
           <h4>Perfil de usuario</h4>
           <p>Bienvenido, <strong>${username}</strong>.</p>
         `;
-      });
-  
-      document.getElementById('linkChange').addEventListener('click', () => {
+      };
+
+      const changeFn = () => {
         main.innerHTML = `
           <h4>Cambiar contraseña</h4>
           <div id="changeAlert"></div>
@@ -184,17 +205,31 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="btn btn-success">Actualizar</button>
           </form>
         `;
-        // reenganchar listener de changeForm tras inyección
         const evt = new Event('DOMContentLoaded');
         document.dispatchEvent(evt);
-      });
-  
-      document.getElementById('linkOther').addEventListener('click', () => {
+      };
+
+      const otherFn = () => {
         main.innerHTML = `
           <h4>Otras funciones</h4>
           <p>Aquí puedes agregar más opciones.</p>
         `;
+      };
+
+      ['linkProfile','linkProfile2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', profileFns);
+      });
+
+      ['linkChange','linkChange2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', changeFn);
+      });
+
+      ['linkOther','linkOther2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', otherFn);
       });
     }
   });
-  
+ 
