@@ -21,8 +21,8 @@
 </head>
 <body class="auth-page">
   <header class="auth-header container d-flex justify-content-between align-items-center">
-    <h1 class="fs-4 fw-bold m-0">SecureAuth</h1>
-    <button id="themeToggle" class="btn btn-secondary"><i class="bi bi-moon-fill"></i></button>
+    <h1 class="app-logo fw-bold m-0">SecureAuth</h1>
+    <button id="themeToggle" class="btn btn-secondary" aria-label="Cambiar tema"><i class="bi bi-moon-fill"></i></button>
   </header>
   <div class="container auth-content d-flex align-items-center justify-content-center">
     <div class="card p-4 bg-white w-100" style="max-width: 400px;">
@@ -45,19 +45,24 @@
           <label for="password" class="form-label fw-medium">
             <i class="bi bi-lock-fill me-1"></i> Contraseña
           </label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            placeholder="••••••••"
-            required
-          >
+          <div class="input-group">
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+            >
+            <button type="button" class="btn btn-outline-secondary toggle-password" aria-label="Mostrar contraseña">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary w-100 fw-bold">Entrar</button>
       </form>
-      <div class="d-flex justify-content-between mt-3">
-        <a href="register.html" class="small"><i class="bi bi-person-plus-fill me-1"></i>Crear cuenta</a>
-        <a href="forgot.html" class="small"><i class="bi bi-key-fill me-1"></i>Olvidé mi contraseña</a>
+      <div class="d-flex flex-column gap-1 text-center mt-3 small">
+        <a href="register.html"><i class="bi bi-person-plus-fill me-1"></i>Crear cuenta</a>
+        <a href="forgot.html"><i class="bi bi-key-fill me-1"></i>Olvidé mi contraseña</a>
       </div>
     </div>
   </div>
