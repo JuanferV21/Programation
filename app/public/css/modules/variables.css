@@ -1,0 +1,24 @@
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --auth-bg: linear-gradient(120deg, #eceff4 0%, #f7f8fa 100%);
+  --dashboard-bg: #f4f6f9;
+  --card-bg: #fff;
+  --text-color: #212529;
+  --link-color: #1a73e8;
+  --sidebar-bg: #fff;
+  --sidebar-text: #555;
+  --sidebar-active-bg: #e9ecef;
+  --sidebar-active-text: #333;
+}
+
+[data-theme="dark"] {
+  --auth-bg: linear-gradient(120deg, #0f2027 0%, #203a43 100%);
+  --dashboard-bg: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #e1e1e1;
+  --link-color: #9bbcff;
+  --sidebar-bg: #1e1e1e;
+  --sidebar-text: #ccc;
+  --sidebar-active-bg: #333;
+  --sidebar-active-text: #fff;
+}

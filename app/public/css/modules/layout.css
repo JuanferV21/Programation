@@ -1,0 +1,38 @@
+body {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.auth-page {
+  background: var(--auth-bg);
+  min-height: 100vh;
+}
+
+.auth-header {
+  margin-bottom: 2rem;
+  background: transparent;
+}
+
+.app-logo {
+  font-size: 1.75rem;
+}
+
+.auth-content {
+  min-height: calc(100vh - 6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-page {
+  background: var(--dashboard-bg);
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--sidebar-bg);
+  min-height: calc(100vh - 56px);
+  width: 250px;
+  border-right: 1px solid #e0e0e0;
+}
