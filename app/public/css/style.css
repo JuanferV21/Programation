@@ -1,6 +1,6 @@
 :root {
   --font-family: 'Poppins', sans-serif;
-  --auth-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --auth-bg: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
   --dashboard-bg: #f4f6f9;
   --card-bg: #fff;
   --text-color: #212529;
@@ -13,7 +13,7 @@
 }
 
 [data-theme="dark"] {
-  --auth-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  --auth-bg: linear-gradient(120deg, #0f2027 0%, #203a43 100%);
   --dashboard-bg: #121212;
   --card-bg: #1e1e1e;
   --text-color: #e1e1e1;
@@ -34,6 +34,18 @@ body {
   min-height: 100vh;
 }
 
+.auth-header {
+  margin-bottom: 2rem;
+  background: transparent;
+}
+
+.auth-content {
+  min-height: calc(100vh - 6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .dashboard-page {
   background: var(--dashboard-bg);
   min-height: 100vh;
@@ -47,6 +59,11 @@ body {
 
 .form-control:focus {
   box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.25);
+}
+
+.auth-page .form-control,
+.auth-page button[type="submit"] {
+  transition: all 0.2s ease-in-out;
 }
 
 a {
@@ -73,7 +90,8 @@ a {
 }
 
 #themeToggle {
-  position: absolute;
+  position: fixed;
   top: 1rem;
   right: 1rem;
+  z-index: 1000;
 }
