@@ -1,0 +1,89 @@
+<!-- Improved version of register.html :contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3} -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro – SecureAuth</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  >
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.25);
+    }
+    a { color: #667eea; }
+  </style>
+</head>
+<body>
+  <div class="container d-flex align-items-center justify-content-center" style="min-height:100vh;">
+    <div class="card p-4 bg-white w-100" style="max-width: 450px;">
+      <h4 class="card-title text-center mb-3 fw-semibold">
+        <i class="bi bi-person-plus-fill me-1"></i>Crear Cuenta
+      </h4>
+      <div id="registerAlert"></div>
+      <form id="registerForm">
+        <div class="mb-3">
+          <label for="regUser" class="form-label fw-medium">Usuario</label>
+          <input
+            type="text"
+            id="regUser"
+            class="form-control"
+            placeholder="Elige un usuario"
+            required
+          >
+        </div>
+        <div class="mb-3">
+          <label for="regEmail" class="form-label fw-medium">Email</label>
+          <input
+            type="email"
+            id="regEmail"
+            class="form-control"
+            placeholder="tu@correo.com"
+            required
+          >
+        </div>
+        <div class="mb-3">
+          <label for="regPass" class="form-label fw-medium">Contraseña</label>
+          <input
+            type="password"
+            id="regPass"
+            class="form-control"
+            placeholder="••••••••"
+            required
+          >
+        </div>
+        <button type="submit" class="btn btn-success w-100 fw-bold">
+          Registrar
+        </button>
+      </form>
+      <div class="text-center mt-3">
+        <a href="index.html" class="small">
+          <i class="bi bi-arrow-left me-1"></i>Volver al login
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
