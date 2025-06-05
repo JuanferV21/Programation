@@ -1,6 +1,6 @@
 :root {
   --font-family: 'Poppins', sans-serif;
-  --auth-bg: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  --auth-bg: linear-gradient(120deg, #eceff4 0%, #f7f8fa 100%);
   --dashboard-bg: #f4f6f9;
   --card-bg: #fff;
   --text-color: #212529;
@@ -27,6 +27,7 @@
 body {
   font-family: var(--font-family);
   color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .auth-page {
@@ -37,6 +38,10 @@ body {
 .auth-header {
   margin-bottom: 2rem;
   background: transparent;
+}
+
+.app-logo {
+  font-size: 1.75rem;
 }
 
 .auth-content {
@@ -55,6 +60,13 @@ body {
   background: var(--card-bg);
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
 }
 
 .form-control:focus {
@@ -64,6 +76,10 @@ body {
 .auth-page .form-control,
 .auth-page button[type="submit"] {
   transition: all 0.2s ease-in-out;
+}
+
+.toggle-password {
+  transition: color 0.2s ease;
 }
 
 a {
@@ -90,8 +106,5 @@ a {
 }
 
 #themeToggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1000;
+  position: relative;
 }

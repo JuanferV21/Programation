@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const changeForm    = document.getElementById('changeForm');
     const username      = localStorage.getItem('username');
     const themeToggle   = document.getElementById('themeToggle');
+    const togglePwBtns  = document.querySelectorAll('.toggle-password');
 
     function applyTheme(theme) {
       if (theme === 'dark') {
@@ -25,6 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const newTheme = isDark ? 'light' : 'dark';
         localStorage.setItem('theme', newTheme);
         applyTheme(newTheme);
+      });
+    }
+
+    if (togglePwBtns) {
+      togglePwBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const input = btn.closest('.input-group').querySelector('input');
+          if (!input) return;
+          const show = input.type === 'password';
+          input.type = show ? 'text' : 'password';
+          btn.innerHTML = show ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
+          btn.setAttribute('aria-label', show ? 'Ocultar contraseña' : 'Mostrar contraseña');
+        });
       });
     }
   
