@@ -47,3 +47,8 @@ a {
 #themeToggle {
   position: relative;
 }
+
+/* Card container for authentication pages */
+.auth-card {
+  max-width: 400px;
+}
