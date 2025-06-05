@@ -5,6 +5,7 @@ const jwt      = require('jsonwebtoken');
 const crypto   = require('crypto');
 const pool     = require('../db');
 const { hashPassword, comparePassword } = require('../utils/hash');
+const { sendResetEmail } = require('../utils/email');
 const jwtVerify = require('../middleware/jwtVerify');
 
 const router = express.Router();
@@ -160,17 +161,18 @@ router.post('/change-password', jwtVerify, async (req, res) => {
 // Olvidé mi contraseña: genera token
 // -------------------------------------
 router.post('/forgot-password', async (req, res) => {
-  const { username } = req.body;
-  if (!username) return res.status(400).json({ error: 'Usuario requerido' });
+  const { username, email } = req.body;
+  if (!username || !email)
+    return res.status(400).json({ error: 'Usuario y email requeridos' });
 
   const conn = await pool.getConnection();
   try {
     const [rows] = await conn.query(
-      'SELECT id FROM usuarios WHERE username = ?',
-      [username]
+      'SELECT id, email FROM usuarios WHERE username = ? AND email = ?',
+      [username, email]
     );
     if (rows.length === 0)
-      return res.status(404).json({ error: 'Usuario no existe' });
+      return res.status(404).json({ error: 'Datos no coinciden' });
 
     const token   = crypto.randomBytes(32).toString('hex');
     const expires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutos
@@ -179,8 +181,11 @@ router.post('/forgot-password', async (req, res) => {
       [token, rows[0].id, expires]
     );
 
-    // En producción enviar por correo; aquí devolvemos el token
-    res.json({ message: 'Token generado. Válido 15 min.', token });
+    await sendResetEmail(email, token);
+
+    res.json({
+      message: 'Si los datos son correctos recibirás un correo con instrucciones'
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   } finally {
@@ -191,10 +196,12 @@ router.post('/forgot-password', async (req, res) => {
 // -------------------------------------
 // Restablecer contraseña con token
 // -------------------------------------
-router.post('/reset-password', jwtVerify, async (req, res) => {
-  const { token, newPassword } = req.body;
+router.post('/reset-password', async (req, res) => {
+  const { token, newPassword, confirmPassword } = req.body;
   if (!token || !newPassword)
     return res.status(400).json({ error: 'Token y nueva contraseña requeridos' });
+  if (confirmPassword !== undefined && newPassword !== confirmPassword)
+    return res.status(400).json({ error: 'Las contraseñas no coinciden' });
 
   const conn = await pool.getConnection();
   try {

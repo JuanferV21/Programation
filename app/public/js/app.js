@@ -132,12 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
       forgotForm.addEventListener('submit', async e => {
         e.preventDefault();
         const u = document.getElementById('forgotUser').value;
-  
+        const em = document.getElementById('forgotEmail').value;
+
         try {
           const res = await fetch('/api/auth/forgot-password', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: u })
+            body: JSON.stringify({ username: u, email: em })
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error);
@@ -145,8 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const div = document.getElementById('resetLink');
           if (div) {
             div.innerHTML = `
-              <p>Usa este token para <a href="reset.html">restablecer tu contraseña</a>:</p>
-              <code>${data.token}</code>
+              <a href="reset.html">Ir a restablecer contraseña</a>
             `;
           }
         } catch (err) {
@@ -163,12 +163,17 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const t = document.getElementById('resetToken').value;
         const p = document.getElementById('resetPass').value;
-  
+        const p2 = document.getElementById('resetPass2').value;
+        if (p !== p2) {
+          showAlert('resetAlert', 'Las contraseñas no coinciden', 'danger');
+          return;
+        }
+
         try {
           const res = await fetch('/api/auth/reset-password', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token: t, newPassword: p })
+            body: JSON.stringify({ token: t, newPassword: p, confirmPassword: p2 })
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error);
