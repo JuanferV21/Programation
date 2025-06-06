@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
+import os
 import cx_Oracle
 import mysql.connector
 from datetime import datetime
 
 # ----- PARÁMETROS DE CONEXIÓN -----
-# Oracle XE (SID = xe) en localhost:1521
+# Las credenciales se obtienen de variables de entorno
 ora_conn = cx_Oracle.connect(
-    user='SYSTEM',
-    password='juan12',
-    dsn='localhost:1521/xe'
+    user=os.getenv("ORACLE_USER"),
+    password=os.getenv("ORACLE_PASSWORD"),
+    dsn=os.getenv("ORACLE_DSN"),
 )
 
-# MySQL – base de réplica, no uses 'sys'
 my_conn = mysql.connector.connect(
-    host='localhost',
-    port=3306,
-    user='root',
-    password='juan12',
-    database='sys'      # <- cambia esto por tu réplica
+    host=os.getenv("MYSQL_HOST"),
+    port=int(os.getenv("MYSQL_PORT", "3306")),
+    user=os.getenv("MYSQL_USER"),
+    password=os.getenv("MYSQL_PASSWORD"),
+    database=os.getenv("MYSQL_DB"),  # <- cambia esto por tu réplica
 )
 
 def get_last_sync(cursor):
