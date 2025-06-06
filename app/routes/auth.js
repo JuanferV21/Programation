@@ -100,7 +100,12 @@ router.post('/login', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+    const secureCookie = process.env.NODE_ENV === 'production';
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: secureCookie,
+      sameSite: 'strict'
+    });
     res.json({ message: 'Login exitoso' });
   } finally {
     conn.release();
