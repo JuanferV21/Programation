@@ -2,6 +2,15 @@
 
 This repository contains the SecureAuth application and related scripts.
 
+## Environment setup
+
+Copy `app/.env.example` to `app/.env` and fill in your real credentials before running the application:
+
+```bash
+cp app/.env.example app/.env
+# edit app/.env
+```
+
 ## Running Tests
 
 Tests reside inside the `app` directory. Before executing them you must install the Node.js dependencies for that project:
